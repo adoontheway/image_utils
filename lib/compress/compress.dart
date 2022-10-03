@@ -17,7 +17,9 @@ class ImageCompress {
     bool exsit = await f.exists();
     if (!exsit) {
       onError ?? onError!('file $imagePath not exist');
-      print('file $imagePath not exist');
+      if (kDebugMode) {
+        print('file $imagePath not exist');
+      }
       return;
     }
     f.readAsBytes().then((value) => analyse(value));

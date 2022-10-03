@@ -20,6 +20,24 @@ A flutter library intented to do some simple image process.
 * Greyscale: grey.
 * ghyr5tIndexed-colour: palette index.
 
+### Chunk naming conventions
+* [REC-PNG-20031110](https://www.w3.org/TR/2003/REC-PNG-20031110/#11zTXt)
+>> cHNk  <-- 32 bit chunk type represented in text form
+   ||||
+   |||+- Safe-to-copy bit is 1 (lower case letter; bit 5 is 1)
+   ||+-- Reserved bit is 0     (upper case letter; bit 5 is 0)
+   |+--- Private bit is 0      (upper case letter; bit 5 is 0)
+   +---- Ancillary bit is 1    (lower case letter; bit 5 is 1)
+
+
+#### Critical Chunk
+* IHDR
+* PLTE
+* IDAT
+* IEND
+
+
+
 ## Reference
 * [PNG Specification ](http://www.libpng.org/pub/png/spec/)
 * [ PNG图像格式解析 ](https://blog.csdn.net/weixin_45715387/article/details/115181935)
