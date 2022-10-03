@@ -58,6 +58,8 @@ class CriticalChunk {
       this.data = IEND(length: this.length);
     } else if (this.chunkType == 'tIME') {
       this.data = tIME(length: this.length);
+    } else {
+      this.data = MaybeIgnored(length: this.length);
     }
 
     offset = this.data.analyse(bytes, offset + 4 + 4);
@@ -107,6 +109,18 @@ class IHDR extends ChunkData {
     this.interlaceMethod = bytes[startOffset + 4 + 8];
     this.crc = toInt32(bytes, startOffset + 4 + 9);
     return startOffset + 4 + 9 + 4;
+  }
+}
+
+class MaybeIgnored extends ChunkData {
+  int length;
+  late Uint8List data;
+  late int crc;
+  MaybeIgnored({required this.length});
+  analyse(Uint8List bytes, int startOffset) {
+    this.data = bytes.sublist(startOffset, startOffset + this.length);
+    this.crc = toInt32(bytes, startOffset + 4 + 9);
+    return startOffset + this.length + 4;
   }
 }
 
