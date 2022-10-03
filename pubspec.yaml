@@ -1,5 +1,5 @@
-name: ado_image
-description: A image compress process library.
+name: image_utils
+description: A image utils for image compress, resize, extract etc.
 
 
 version: 1.0.0+1

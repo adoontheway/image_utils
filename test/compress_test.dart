@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:ado_image/compress/compress.dart';
-import 'package:ado_image/compress/png_reader.dart';
+import 'package:image_utils/compress/compress.dart';
+import 'package:image_utils/compress/png_reader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 

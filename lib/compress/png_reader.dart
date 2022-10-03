@@ -1,7 +1,5 @@
-import 'dart:ffi';
-
-import 'package:ado_image/compress/chunk.dart';
-import 'package:ado_image/util/utils.dart';
+import 'package:image_utils/compress/chunk.dart';
+import 'package:image_utils/util/utils.dart';
 import 'package:flutter/foundation.dart';
 
 final Uint8List PNGHeader =
@@ -25,7 +23,7 @@ class PNGReader {
   PNGReader({required this.bytes});
   analyse() {
     int offset = 8;
-    while (true) {
+    while (offset > 0) {
       CriticalChunk chunk = CriticalChunk();
       offset = chunk.analyse(bytes, offset);
       chunks.add(chunk);
@@ -52,9 +50,18 @@ class CriticalChunk {
       this.data = zTXt(length: this.length);
     } else if (this.chunkType == 'bKGD') {
       this.data = bKGD(length: this.length);
+    } else if (this.chunkType == 'pHYs') {
+      this.data = pHYs(length: this.length);
+    } else if (this.chunkType == 'IDAT') {
+      this.data = IDAT(length: this.length);
+    } else if (this.chunkType == 'IEND') {
+      this.data = IEND(length: this.length);
+    } else if (this.chunkType == 'tIME') {
+      this.data = tIME(length: this.length);
     }
-    offset = offset + this.length + 12;
-    // offset = this.data.analyse(bytes, offset + 4 + 4);
+
+    offset = this.data.analyse(bytes, offset + 4 + 4);
+    // offset = offset + this.length + 12;
     return offset;
   }
 }
@@ -160,11 +167,27 @@ class PLTE {
   late int Blue;
 }
 
-class IDAT {}
+class IDAT extends ChunkData {
+  int length;
+  late Uint8List data;
+  late int crc;
+  IDAT({required this.length});
+  analyse(Uint8List bytes, int startOffset) {
+    this.data = bytes.sublist(startOffset, startOffset + this.length);
+    this.crc = toInt32(bytes, startOffset + 4 + 9);
+    return startOffset + this.length + 4;
+  }
+}
 
-class IEND {}
-
-class AncillatyChunk {}
+class IEND extends ChunkData {
+  int length;
+  late Uint8List data;
+  late int crc;
+  IEND({required this.length});
+  analyse(Uint8List bytes, int startOffset) {
+    return -1;
+  }
+}
 
 class cHRM {}
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ado_image/compress/png_reader.dart';
+import 'package:image_utils/compress/png_reader.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 
