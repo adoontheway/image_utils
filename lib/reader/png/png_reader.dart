@@ -1,4 +1,4 @@
-import 'package:image_utils/compress/chunk.dart';
+import 'package:image_utils/reader/png/chunk.dart';
 import 'package:image_utils/util/utils.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,14 +20,37 @@ isPng(Uint8List bytes) {
 class PNGReader {
   Uint8List bytes;
   List chunks = [];
+  late Map<String, int> chunkTypeCountMap;
+  late Map<String, int> chunkTypeSizeMap;
   PNGReader({required this.bytes});
   analyse() {
+    chunkTypeCountMap = {};
+    chunkTypeSizeMap = {};
     int offset = 8;
+
     while (offset > 0) {
       Chunk chunk = Chunk();
       offset = chunk.analyse(bytes, offset);
+      if (!chunkTypeCountMap.containsKey(chunk.chunkType)) {
+        chunkTypeCountMap[chunk.chunkType] = 0;
+      }
+      chunkTypeCountMap[chunk.chunkType] =
+          chunkTypeCountMap[chunk.chunkType]! + 1;
+
+      if (!chunkTypeSizeMap.containsKey(chunk.chunkType)) {
+        chunkTypeSizeMap[chunk.chunkType] = 0;
+      }
+      chunkTypeSizeMap[chunk.chunkType] =
+          chunkTypeSizeMap[chunk.chunkType]! + chunk.length;
       chunks.add(chunk);
     }
+    statistic();
+  }
+
+  statistic() {
+    chunkTypeSizeMap.forEach((key, value) {
+      print('chunk type:$key, size:${value / 1024} KB');
+    });
   }
 }
 
@@ -43,7 +66,7 @@ class Chunk {
   analyse(Uint8List bytes, int offset) {
     length = toInt32(bytes, offset);
     chunkType = String.fromCharCodes(bytes, offset + 4, offset + 4 + 4);
-    print(chunkType);
+    // print(chunkType);
     if (chunkType == 'IHDR') {
       data = IHDR();
     } else if (chunkType == 'zTXt') {

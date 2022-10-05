@@ -24,10 +24,26 @@ int toInt64(Uint8List bytes, int start) {
   return short;
 }
 
-int toInt16_1(Uint8List bytes, int start) {
+int toInt16_1(Uint8List bytes, int start, {bool bigEndian = true}) {
   int result = 0;
   for (int i = start; i < 2; i++) {
-    result += (bytes[start + i] << i);
+    if (bigEndian) {
+      result += (bytes[i - start] << ((1 - i) * 8));
+    } else {
+      result += (bytes[start + i] << (i * 8));
+    }
+  }
+  return result;
+}
+
+int toInt32_1(Uint8List bytes, int start, {bool bigEndian = true}) {
+  int result = 0;
+  for (int i = start; i < 4; i++) {
+    if (bigEndian) {
+      result += (bytes[i - start] << ((3 - i) * 8));
+    } else {
+      result += (bytes[start + i] << (i * 8));
+    }
   }
   return result;
 }

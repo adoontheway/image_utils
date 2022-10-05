@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:image_utils/compress/compress.dart';
-import 'package:image_utils/compress/png_reader.dart';
+import 'package:image_utils/reader/jpeg/jpeg_reader.dart';
+import 'package:image_utils/reader/png/png_reader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -25,10 +26,24 @@ void main() {
     expect(result, false);
   });
 
-  test('PNGReader CriticalChunk', () async {
+  test('File isjpg test on jpeg', () async {
+    File f = File('assets/images/test.jpeg');
+    Uint8List bytes = await f.readAsBytes();
+    bool result = isJpeg(bytes);
+    expect(result, true);
+  });
+
+  test('File isjpg test on jpg', () async {
+    File f = File('assets/images/test.jpg');
+    Uint8List bytes = await f.readAsBytes();
+    bool result = isJpeg(bytes);
+    expect(result, true);
+  });
+
+  test('File isjpg test on png', () async {
     File f = File('assets/images/test.png');
     Uint8List bytes = await f.readAsBytes();
-    PNGReader reader = PNGReader(bytes: bytes);
-    reader.analyse();
+    bool result = isJpeg(bytes);
+    expect(result, false);
   });
 }
