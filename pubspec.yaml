@@ -1,8 +1,9 @@
 name: image_utils
 description: A image utils for image compress, resize, extract etc.
-
-
 version: 1.0.0+1
+maintainer: Ado (@adoontheway)
+repository: https://github.com/adoontheway/image_utils
+issue_tracker:
 
 environment:
   sdk: '>=2.18.1 <3.0.0'
@@ -28,10 +29,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/test.jpeg
-    - assets/images/test.jpg
-    - assets/images/test.png
+  # assets:
+  #   - assets/images/test.jpeg
+  #   - assets/images/test.jpg
+  #   - assets/images/test.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
