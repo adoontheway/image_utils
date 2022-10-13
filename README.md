@@ -2,10 +2,31 @@
 
 A flutter library intented to do some simple image process.
 
+# Features 
+- [ ] Distinct Image format by content, not file ext
+   - [x] isPng 
+   - [ ] isJpg 
+- Uint8List Read
+   - [x] read short(16 byte)
+   - [x] int32 (32 bytes) from Uint8List 
+- Image Reader 
+   - [x] PNGReader
+   - [ ] JpgReader
+   - [ ] WebpReader
+   - [ ] GifReader
+   - [ ] Base64Reader
+- [ ] Compress Algorithm
+   - [ ] luban
+   - [ ] others like quotation 
+- [ ] Sprite Split 
+- [ ] Image Resize 
+- [ ] Image Format convert 
+- [ ] Audio Format Convert
+- [ ] Audio Compress 
 
-# Image 
+# Reference for myself
 
-## PNG
+## Specification of PNG
 ### five types of png
 #### transformation of the reference image results i
 * Truecolour with alpha: each pixel consists of four samples: red, green, blue, and alpha.
