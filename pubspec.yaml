@@ -1,6 +1,6 @@
 name: image_utils
 description: A image utils for image compress, resize, extract etc.
-version: 1.0.0+1
+version: 0.1.0+1
 maintainer: Ado (@adoontheway)
 repository: https://github.com/adoontheway/image_utils
 issue_tracker: https://github.com/adoontheway/image_utils/issues

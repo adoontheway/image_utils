@@ -7,8 +7,8 @@ A flutter library intented to do some simple image process.
    - [x] isPng 
    - [ ] isJpg 
 - Uint8List Read
-   - [x] read short(16 byte)
-   - [x] int32 (32 bytes) from Uint8List 
+   - [x] read short(2 byte)
+   - [x] int32 (4 bytes) from Uint8List 
 - Image Reader 
    - [x] PNGReader
    - [ ] JpgReader
